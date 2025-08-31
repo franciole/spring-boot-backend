@@ -1,7 +1,6 @@
 package com.franciole.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -17,14 +16,13 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instante;
 
-    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
@@ -40,26 +38,47 @@ public class Pedido implements Serializable {
     }
 
     public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
+        super();
         this.id = id;
         this.instante = instante;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Date getInstante() {
+        return instante;
     }
 
     public void setInstante(Date instante) {
         this.instante = instante;
     }
 
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
     public void setPagamento(Pagamento pagamento) {
         this.pagamento = pagamento;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Endereco getEnderecoDeEntrega() {
+        return enderecoDeEntrega;
     }
 
     public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
