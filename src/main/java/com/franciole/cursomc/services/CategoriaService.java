@@ -1,9 +1,11 @@
 package com.franciole.cursomc.services;
 
 import com.franciole.cursomc.domain.Categoria;
+import com.franciole.cursomc.dto.CategoriaDTO;
 import com.franciole.cursomc.repositories.CategoriaRepository;
 import com.franciole.cursomc.services.exceptions.DataIntegrityException;
 import com.franciole.cursomc.services.exceptions.ObjectNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -53,5 +55,9 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy); //PageRequest(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(@Valid CategoriaDTO objDto) {
+        return new Categoria(objDto.getId(), objDto.getNome());
     }
 }
