@@ -1,12 +1,14 @@
 package com.franciole.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.franciole.cursomc.domain.enums.EstadoPagamento;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 
 @Entity
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include= JsonTypeInfo.As.PROPERTY, property= "@type")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
